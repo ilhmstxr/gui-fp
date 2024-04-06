@@ -112,10 +112,10 @@ public class menu extends javax.swing.JFrame {
         daftarButton1 = new java.awt.Button();
         jScrollPane1 = new javax.swing.JScrollPane();
         daftarMember = new javax.swing.JTable();
-        jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
         panelProduk = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -242,17 +242,17 @@ public class menu extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(daftarMember);
 
-        jLabel20.setIcon(new javax.swing.ImageIcon("D:\\Download\\icons8-ice-48.png")); // NOI18N
-        jLabel20.setText("jLabel20");
-
-        jLabel21.setIcon(new javax.swing.ImageIcon("D:\\Download\\icons8-ice-48.png")); // NOI18N
+        jLabel21.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Aset/icons8-ice-48.png"))); // NOI18N
         jLabel21.setText("jLabel20");
 
-        jLabel22.setIcon(new javax.swing.ImageIcon("D:\\Download\\icons8-account-48.png")); // NOI18N
+        jLabel22.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Aset/icons8-account-48.png"))); // NOI18N
         jLabel22.setText("jLabel22");
 
-        jLabel23.setIcon(new javax.swing.ImageIcon("D:\\Download\\icons8-home-50.png")); // NOI18N
+        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Aset/icons8-home-50.png"))); // NOI18N
         jLabel23.setText("jLabel23");
+
+        jLabel36.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Aset/icons8-ice-48.png"))); // NOI18N
+        jLabel36.setText("jLabel20");
 
         javax.swing.GroupLayout panelMemberLayout = new javax.swing.GroupLayout(panelMember);
         panelMember.setLayout(panelMemberLayout);
@@ -267,7 +267,7 @@ public class menu extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel20, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel36, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelMemberLayout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(panelMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -295,8 +295,8 @@ public class menu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel20)
-                    .addComponent(jLabel21))
+                    .addComponent(jLabel21)
+                    .addComponent(jLabel36))
                 .addGroup(panelMemberLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelMemberLayout.createSequentialGroup()
                         .addGap(20, 20, 20)
@@ -375,19 +375,19 @@ public class menu extends javax.swing.JFrame {
             }
         });
 
-        jLabel24.setIcon(new javax.swing.ImageIcon("D:\\Download\\icons8-ice-48.png")); // NOI18N
+        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Aset/icons8-ice-48.png"))); // NOI18N
         jLabel24.setText("jLabel20");
 
-        jLabel25.setIcon(new javax.swing.ImageIcon("D:\\Download\\icons8-ice-48.png")); // NOI18N
+        jLabel25.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Aset/icons8-ice-48.png"))); // NOI18N
         jLabel25.setText("jLabel20");
 
-        jLabel26.setIcon(new javax.swing.ImageIcon("D:\\Download\\icons8-product-50.png")); // NOI18N
+        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Aset/icons8-product-50.png"))); // NOI18N
         jLabel26.setText("jLabel26");
 
-        jLabel27.setIcon(new javax.swing.ImageIcon("D:\\Download\\icons8-price-50.png")); // NOI18N
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Aset/icons8-price-50.png"))); // NOI18N
         jLabel27.setText("jLabel27");
 
-        jLabel28.setIcon(new javax.swing.ImageIcon("D:\\Download\\icons8-stock-50.png")); // NOI18N
+        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Aset/icons8-stock-50.png"))); // NOI18N
 
         javax.swing.GroupLayout panelProdukLayout = new javax.swing.GroupLayout(panelProduk);
         panelProduk.setLayout(panelProdukLayout);
@@ -582,11 +582,11 @@ public class menu extends javax.swing.JFrame {
             }
         });
 
-        jLabel29.setIcon(new javax.swing.ImageIcon("D:\\Download\\icons8-up-50.png")); // NOI18N
+        jLabel29.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Aset/icons8-up-50.png"))); // NOI18N
 
-        jLabel30.setIcon(new javax.swing.ImageIcon("D:\\Download\\icons8-down-50.png")); // NOI18N
+        jLabel30.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Aset/icons8-down-50.png"))); // NOI18N
 
-        jLabel31.setIcon(new javax.swing.ImageIcon("D:\\Download\\icons8-date-50.png")); // NOI18N
+        jLabel31.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Aset/icons8-date-50.png"))); // NOI18N
 
         jTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -645,7 +645,7 @@ public class menu extends javax.swing.JFrame {
 
         LP_Pembeli.setBackground(new java.awt.Color(153, 204, 255));
 
-        jLabel32.setIcon(new javax.swing.ImageIcon("D:\\Download\\icons8-date-50.png")); // NOI18N
+        jLabel32.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Aset/icons8-date-50.png"))); // NOI18N
 
         jLabel33.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel33.setText("Tanggal");
@@ -656,7 +656,7 @@ public class menu extends javax.swing.JFrame {
             }
         });
 
-        jLabel34.setIcon(new javax.swing.ImageIcon("D:\\Download\\icons8-up-50.png")); // NOI18N
+        jLabel34.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Aset/icons8-up-50.png"))); // NOI18N
 
         jRadioButton5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jRadioButton5.setText("Naik");
@@ -669,7 +669,7 @@ public class menu extends javax.swing.JFrame {
         jRadioButton6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jRadioButton6.setText("Menurun");
 
-        jLabel35.setIcon(new javax.swing.ImageIcon("D:\\Download\\icons8-down-50.png")); // NOI18N
+        jLabel35.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Aset/icons8-down-50.png"))); // NOI18N
 
         jTable5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1027,7 +1027,6 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
@@ -1044,6 +1043,7 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
