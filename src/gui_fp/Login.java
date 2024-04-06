@@ -11,7 +11,7 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
-    
+    public static String pass = "12345678";
     public Login() {
         initComponents();
     }
@@ -119,7 +119,7 @@ public class Login extends javax.swing.JFrame {
 
         PassSalah.setForeground(new java.awt.Color(255, 0, 51));
         jPanel1.add(PassSalah);
-        PassSalah.setBounds(360, 280, 280, 0);
+        PassSalah.setBounds(360, 280, 280, 20);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -132,7 +132,8 @@ public class Login extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        pack();
+        setSize(new java.awt.Dimension(679, 436));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void NamaKaryawanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NamaKaryawanActionPerformed
@@ -141,16 +142,20 @@ public class Login extends javax.swing.JFrame {
 
     private void MasukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MasukActionPerformed
         //Check Password
-        if (Password.getText().equals(12345678)){
+        if (Password.getText().equals(pass)){
             menu mn = new menu();
             mn.setVisible(true);
-            mn.pack();
-            mn.setLocationRelativeTo(null);
-            mn.setDefaultCloseOperation(Login.EXIT_ON_CLOSE);
-            
-        } else {
+            this.dispose();
+        }else{
             PassSalah.setText("Password Salah !");
         }
+            
+            
+//            mn.pack();
+//            mn.setLocationRelativeTo(null);
+//            mn.setDefaultCloseOperation(menu.EXIT_ON_CLOSE);
+            
+       
     }//GEN-LAST:event_MasukActionPerformed
 
     /**
