@@ -4,7 +4,10 @@
  */
 package gui_fp;
 
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.ListModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,10 +21,13 @@ public class menu extends javax.swing.JFrame {
     private cPembeli listPembeli[] = new cPembeli[totalPembeli];
     private static int idxMember = 0;
     private cMember listMember[] = new cMember[totalMember];
+    private cTransaksi tr = new cTransaksi();
 
 //    produk
     private static int idxPrd = 0, totalProduk = 100;
     private cProduk listProduk[] = new cProduk[totalProduk];
+
+    private cProduk[] produkDiKeranjang = tr.getObjekProduk();
 
     /**
      * Creates new form menu
@@ -32,6 +38,7 @@ public class menu extends javax.swing.JFrame {
         refreshTableMember();
         seedingProduk();
         refreshTableProduk();
+        refreshListProduk();
     }
 
     public void seedingMember() {
@@ -76,20 +83,61 @@ public class menu extends javax.swing.JFrame {
 
     public void refreshTableProduk() {
         DefaultTableModel tableModel = new DefaultTableModel(
-                new String[]{"kode Produk", "Nama Produk", "Stok Produk"}, 0); // Column names
+                new String[]{"kode Produk", "Nama Produk", "Stok Produk", "Harga Produk"}, 0); // Column names
 
         for (int i = 0; i < listProduk.length; i++) {
             if (listProduk[i] != null) {
-                Object[] objekListMember = {
+                Object[] objekListProduk = {
+                    listProduk[i].getKode(),
                     listProduk[i].getNama(),
-                    listProduk[i].getHarga(),
-                    listProduk[i].getStok()
+                    listProduk[i].getStok(),
+                    listProduk[i].getHarga()
                 };
-                tableModel.addRow(objekListMember);
+                tableModel.addRow(objekListProduk);
             }
         }
 
         daftarProduk.setModel(tableModel);
+    }
+
+    public void refreshListProduk() {
+//        list produk
+        String dataProduk;
+        DefaultListModel<String> listModel = new DefaultListModel<>();
+
+        for (int i = 0; i < listProduk.length; i++) {
+            if (listProduk[i] != null) {
+//                if (listProduk[i] != produkDiKeranjang[i]) {
+                dataProduk = listProduk[i].ToString();
+                listModel.addElement(dataProduk); // Menambahkan data ke model
+            }
+//            }
+        }
+        jListProduk.setModel(listModel);
+
+//        keranjang
+        DefaultTableModel tableModel = new DefaultTableModel(
+                new String[]{"Nama Produk", "Harga Produk", "Jumlah yang dibutuhkan", "total"}, 0); // Column names
+
+        if (produkDiKeranjang.length != 0) {
+            for (int i = 0; i < produkDiKeranjang.length; i++) {
+                if (produkDiKeranjang[i] != null) {
+                    Object[] objekListProduk = {
+                        produkDiKeranjang[i].getNama(),
+                        produkDiKeranjang[i].getHarga(),
+                        tr.getJumlah(i),
+                        tr.getTotal(i)
+
+                    };
+                    tableModel.addRow(objekListProduk);
+                }
+            }
+        }
+        tabelKeranjang.setModel(tableModel);
+    }
+
+    public void resetTransaksi() {
+
     }
 
     /**
@@ -143,7 +191,7 @@ public class menu extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         panelHistori = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tabMasterHistori = new javax.swing.JTabbedPane();
         LP_Produk = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
@@ -166,8 +214,6 @@ public class menu extends javax.swing.JFrame {
         jTable5 = new javax.swing.JTable();
         PanelPilih = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         PilihProduk = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
@@ -175,10 +221,13 @@ public class menu extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jScrollPaneKeranjang = new javax.swing.JScrollPane();
+        tabelKeranjang = new javax.swing.JTable();
         jLabel17 = new javax.swing.JLabel();
         PilihHapus = new javax.swing.JTextField();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        jListProduk = new javax.swing.JList<>();
+        resetTransaksiButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -551,7 +600,7 @@ public class menu extends javax.swing.JFrame {
 
         panelHistori.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
+        tabMasterHistori.setBackground(new java.awt.Color(255, 255, 255));
 
         LP_Produk.setBackground(new java.awt.Color(153, 204, 255));
 
@@ -641,7 +690,7 @@ public class menu extends javax.swing.JFrame {
                 .addGap(266, 266, 266))
         );
 
-        jTabbedPane1.addTab("Laporan Produk", LP_Produk);
+        tabMasterHistori.addTab("Laporan Produk", LP_Produk);
 
         LP_Pembeli.setBackground(new java.awt.Color(153, 204, 255));
 
@@ -731,17 +780,17 @@ public class menu extends javax.swing.JFrame {
                 .addGap(266, 266, 266))
         );
 
-        jTabbedPane1.addTab("Laporan Pembeli", LP_Pembeli);
+        tabMasterHistori.addTab("Laporan Pembeli", LP_Pembeli);
 
         javax.swing.GroupLayout panelHistoriLayout = new javax.swing.GroupLayout(panelHistori);
         panelHistori.setLayout(panelHistoriLayout);
         panelHistoriLayout.setHorizontalGroup(
             panelHistoriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(tabMasterHistori)
         );
         panelHistoriLayout.setVerticalGroup(
             panelHistoriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1075, Short.MAX_VALUE)
+            .addComponent(tabMasterHistori, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 1075, Short.MAX_VALUE)
         );
 
         tabMaster.addTab("Laporan", panelHistori);
@@ -750,11 +799,6 @@ public class menu extends javax.swing.JFrame {
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel14.setText("Silahkan Pilih Produk Yang Akan Di Beli !");
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jTextArea1.setText("1. sosis\n    - kanzler       \tRp. 42.000      Stok : 53\n    - champ        Rp. 32.000      Stok : 42\n    - sonice        \tRp. 29.000      Stok : 15\n\n2. nugget\n    - fiesta\tRp. 38.000      Stok : 21\n    - goldstar     \tRp. 42.000      Stok : 0\n    - kanzler       \tRp. 45.000      Stok : 23\n\n3. dimsum\n    - ayam          \tRp. 25.000      Stok : 31\n    - udang         \tRp. 27.000      Stok : 22\n    - keju          \tRp. 26.000      Stok : 12\n\n4. chikuwa\n    - shifudo       \tRp. 27.000      Stok : 12\n    - cedea         \tRp. 24.000      Stok : 45\n    - sunfish       \tRp. 26.000      Stok : 38");
-        jScrollPane4.setViewportView(jTextArea1);
 
         PilihProduk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -782,7 +826,13 @@ public class menu extends javax.swing.JFrame {
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton3.setText("Cetak Pilihan");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jScrollPaneKeranjang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jScrollPaneKeranjangMouseClicked(evt);
+            }
+        });
+
+        tabelKeranjang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -798,22 +848,37 @@ public class menu extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane5.setViewportView(jTable2);
+        jScrollPaneKeranjang.setViewportView(tabelKeranjang);
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel17.setText("Masukkan Nama Produk Yang Akan Di Hapus : ");
+
+        jListProduk.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListProdukMouseClicked(evt);
+            }
+        });
+        jScrollPane7.setViewportView(jListProduk);
+
+        resetTransaksiButton.setText("Reset");
+        resetTransaksiButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetTransaksiButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout PanelPilihLayout = new javax.swing.GroupLayout(PanelPilih);
         PanelPilih.setLayout(PanelPilihLayout);
         PanelPilihLayout.setHorizontalGroup(
             PanelPilihLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPilihLayout.createSequentialGroup()
-                .addContainerGap(204, Short.MAX_VALUE)
+                .addContainerGap(206, Short.MAX_VALUE)
                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 473, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(139, 139, 139))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelPilihLayout.createSequentialGroup()
-                .addComponent(jScrollPane4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
+                .addComponent(jScrollPane7)
+                .addGap(18, 18, 18)
                 .addGroup(PanelPilihLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelPilihLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
@@ -824,19 +889,20 @@ public class menu extends javax.swing.JFrame {
                         .addComponent(jButton2)
                         .addComponent(jLabel17)
                         .addComponent(PilihHapus))
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(PanelPilihLayout.createSequentialGroup()
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(resetTransaksiButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addComponent(jScrollPane5)
+            .addComponent(jScrollPaneKeranjang)
         );
         PanelPilihLayout.setVerticalGroup(
             PanelPilihLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelPilihLayout.createSequentialGroup()
                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addGap(25, 25, 25)
                 .addGroup(PanelPilihLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(PanelPilihLayout.createSequentialGroup()
-                        .addGap(13, 13, 13)
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(PilihProduk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -853,9 +919,12 @@ public class menu extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(PanelPilihLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(resetTransaksiButton)))
+                    .addComponent(jScrollPane7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 661, Short.MAX_VALUE)
+                .addComponent(jScrollPaneKeranjang, javax.swing.GroupLayout.DEFAULT_SIZE, 661, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -966,6 +1035,32 @@ public class menu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jRadioButton5ActionPerformed
 
+    private void jScrollPaneKeranjangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jScrollPaneKeranjangMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jScrollPaneKeranjangMouseClicked
+
+    private void jListProdukMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListProdukMouseClicked
+        int index = jListProduk.getSelectedIndex();
+        if (index != -1) {
+//            String produk = jListProduk.getSelectedValue();
+//            cProduk produk = 
+            String kodeProduk = listProduk[index].getKode();
+            System.out.println(kodeProduk);
+
+//            DefaultTableModel tabelKeranjangModel = new DefaultTableModel(
+//                    new String[]{"kode Produk", "Nama Produk", "Harga Produk", "Jumlah Produk"}, 0); // Column names
+            tr.tambahProduk(listProduk[index], 1);
+//            tabelKeranjangModel.addRow(new Object[]{listProduk[index].getNama(), listProduk[index].getHarga(), tr.getJumlah(), tr.getJumlah() * listProduk[index].getHarga()});
+            refreshListProduk();
+
+        }
+//        System.out.println(index);
+    }//GEN-LAST:event_jListProdukMouseClicked
+
+    private void resetTransaksiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetTransaksiButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_resetTransaksiButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -980,16 +1075,24 @@ public class menu extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(menu.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(menu.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(menu.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(menu.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -1050,6 +1153,7 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JList<String> jListProduk;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JRadioButton jRadioButton5;
@@ -1057,16 +1161,13 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JScrollPane jScrollPaneKeranjang;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable5;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField namaProdukTXT;
@@ -1077,8 +1178,11 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JPanel panelTransaksi;
     private java.awt.Button resetButton;
     private java.awt.Button resetProdukTXT;
+    private javax.swing.JButton resetTransaksiButton;
     private javax.swing.JTextField stokProdukTXT;
     private javax.swing.JTabbedPane tabMaster;
+    private javax.swing.JTabbedPane tabMasterHistori;
+    private javax.swing.JTable tabelKeranjang;
     private java.awt.Button tambahProdukTXT;
     // End of variables declaration//GEN-END:variables
 }
