@@ -97,6 +97,9 @@ public class cTransaksi {
 
     public cProduk[] reset() {
         cTransaksi tr = new cTransaksi();
+        subtotalProduk = null;
+        produk = null;
+        jumlahProduk = null;
         produk = new cProduk[maksPrd];
         jumlahProduk = new int[maksPrd];
         subtotalProduk = new int[maksPrd];
