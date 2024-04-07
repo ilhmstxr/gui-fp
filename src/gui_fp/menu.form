@@ -1064,21 +1064,23 @@
                       <Component id="jScrollPane7" max="32767" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jLabel15" pref="375" max="32767" attributes="0"/>
-                              <Component id="jLabel16" min="-2" pref="134" max="-2" attributes="0"/>
-                              <Component id="PilihBanyak" alignment="0" max="32767" attributes="0"/>
-                              <Component id="PilihProduk" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jButton2" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="PilihHapus" alignment="0" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jLabel15" pref="375" max="32767" attributes="0"/>
+                                  <Component id="cariProdukTXT" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="buttonHapusProdukTRX" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jLabel17" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="hapusProdukTRXTXT" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Component id="buttonCetakBayar" min="-2" pref="169" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="resetTransaksiButton" min="-2" pref="75" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jumlahProdukTXT" alignment="1" min="-2" pref="375" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="jButton3" min="-2" pref="169" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="resetTransaksiButton" min="-2" pref="75" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="buttonTambahProdukTRX" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel16" min="-2" pref="134" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -1092,31 +1094,31 @@
                       <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel15" min="-2" pref="16" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="PilihProduk" min="-2" max="-2" attributes="0"/>
+                              <Component id="cariProdukTXT" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel16" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="PilihBanyak" min="-2" max="-2" attributes="0"/>
+                              <Component id="jumlahProdukTXT" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                              <Component id="buttonTambahProdukTRX" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                               <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                              <Component id="PilihHapus" min="-2" max="-2" attributes="0"/>
+                              <Component id="hapusProdukTRXTXT" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                              <Component id="buttonHapusProdukTRX" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jButton3" min="-2" pref="47" max="-2" attributes="0"/>
+                                  <Component id="buttonCetakBayar" min="-2" pref="47" max="-2" attributes="0"/>
                                   <Component id="resetTransaksiButton" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="jScrollPane7" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jScrollPaneKeranjang" pref="661" max="32767" attributes="0"/>
+                      <Component id="jScrollPaneKeranjang" pref="673" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -1131,9 +1133,9 @@
                 <Property name="text" type="java.lang.String" value="Silahkan Pilih Produk Yang Akan Di Beli !"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="PilihProduk">
+            <Component class="javax.swing.JTextField" name="cariProdukTXT">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PilihProdukActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cariProdukTXTActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel15">
@@ -1141,7 +1143,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Masukkan Nama Produk : "/>
+                <Property name="text" type="java.lang.String" value="Masukkan Nama Produk (angka): "/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel16">
@@ -1152,17 +1154,9 @@
                 <Property name="text" type="java.lang.String" value="Banyak Yang Dibeli :"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="PilihBanyak">
+            <Component class="javax.swing.JTextField" name="jumlahProdukTXT">
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="12" style="1"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Tambah"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JButton" name="jButton2">
+            <Component class="javax.swing.JButton" name="buttonHapusProdukTRX">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="12" style="1"/>
@@ -1170,16 +1164,19 @@
                 <Property name="text" type="java.lang.String" value="Hapus"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonHapusProdukTRXActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton3">
+            <Component class="javax.swing.JButton" name="buttonCetakBayar">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="14" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cetak Pilihan"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonCetakBayarActionPerformed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPaneKeranjang">
               <Events>
@@ -1210,7 +1207,10 @@
                 <Property name="text" type="java.lang.String" value="Masukkan Nama Produk Yang Akan Di Hapus : "/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="PilihHapus">
+            <Component class="javax.swing.JTextField" name="hapusProdukTRXTXT">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hapusProdukTRXTXTActionPerformed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JScrollPane" name="jScrollPane7">
               <AuxValues>
@@ -1240,6 +1240,17 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="resetTransaksiButtonActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="buttonTambahProdukTRX">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="12" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Tambah"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonTambahProdukTRXActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

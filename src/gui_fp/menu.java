@@ -4,11 +4,16 @@
  */
 package gui_fp;
 
+import java.util.Arrays;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.ListModel;
+import javax.swing.plaf.TabbedPaneUI;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -16,28 +21,35 @@ import javax.swing.table.DefaultTableModel;
  */
 public class menu extends javax.swing.JFrame {
 
+    private JTabbedPane tabbedPane;
 //    daftar member
     private int totalPembeli = 200, totalMember = 100;
     private cPembeli listPembeli[] = new cPembeli[totalPembeli];
     private static int idxMember = 0;
     private cMember listMember[] = new cMember[totalMember];
     private cTransaksi tr = new cTransaksi();
+    
+
+    private String kode = "";
+    private boolean param = false;
 
 //    produk
     private static int idxPrd = 0, totalProduk = 100;
     private cProduk listProduk[] = new cProduk[totalProduk];
 
-    private cProduk[] produkDiKeranjang = tr.getObjekProduk();
+    private cProduk[] produkDiKeranjang;
 
     /**
      * Creates new form menu
      */
     public menu() {
+        produkDiKeranjang = tr.getObjekProduk();
         initComponents();
         seedingMember();
         refreshTableMember();
         seedingProduk();
         refreshTableProduk();
+        refreshKeranjang();
         refreshListProduk();
     }
 
@@ -52,11 +64,21 @@ public class menu extends javax.swing.JFrame {
     }
 
     public void seedingProduk() {
-        listProduk[idxPrd] = new cProduk(idxPrd, "sepatu", 150000, 5);
+        listProduk[idxPrd] = new cProduk(idxPrd, "sosis Muantap", 23000, 53);
         idxPrd++;
-        listProduk[idxPrd] = new cProduk(idxPrd, "sandal", 100000, 10);
+        listProduk[idxPrd] = new cProduk(idxPrd, "sosis Champ", 19000, 42);
         idxPrd++;
-        listProduk[idxPrd] = new cProduk(idxPrd, "tas", 123123, 23);
+        listProduk[idxPrd] = new cProduk(idxPrd, "sosis Salam", 24000, 15);
+        idxPrd++;
+        listProduk[idxPrd] = new cProduk(idxPrd, "nugget Champ", 38000, 21);
+        idxPrd++;
+        listProduk[idxPrd] = new cProduk(idxPrd, "nugget Goldenstar", 42000, 0);
+        idxPrd++;
+        listProduk[idxPrd] = new cProduk(idxPrd, "nugget Kanzler", 40000, 23);
+        idxPrd++;
+        listProduk[idxPrd] = new cProduk(idxPrd, "chikuwa Shifudo", 27000, 12);
+        idxPrd++;
+        listProduk[idxPrd] = new cProduk(idxPrd, "chikuwa Sunfish", 27000, 38);
         idxPrd++;
     }
 
@@ -100,44 +122,33 @@ public class menu extends javax.swing.JFrame {
         daftarProduk.setModel(tableModel);
     }
 
-    public void refreshListProduk() {
-//        list produk
-        String dataProduk;
-        DefaultListModel<String> listModel = new DefaultListModel<>();
-
-        for (int i = 0; i < listProduk.length; i++) {
-            if (listProduk[i] != null) {
-//                if (listProduk[i] != produkDiKeranjang[i]) {
-                dataProduk = listProduk[i].ToString();
-                listModel.addElement(dataProduk); // Menambahkan data ke model
-            }
-//            }
-        }
-        jListProduk.setModel(listModel);
-
-//        keranjang
+    public void refreshKeranjang() {
+        //        keranjang
         DefaultTableModel tableModel = new DefaultTableModel(
                 new String[]{"Nama Produk", "Harga Produk", "Jumlah yang dibutuhkan", "total"}, 0); // Column names
 
-        if (produkDiKeranjang.length != 0) {
-            for (int i = 0; i < produkDiKeranjang.length; i++) {
-                if (produkDiKeranjang[i] != null) {
-                    Object[] objekListProduk = {
-                        produkDiKeranjang[i].getNama(),
-                        produkDiKeranjang[i].getHarga(),
-                        tr.getJumlah(i),
-                        tr.getTotal(i)
-
-                    };
-                    tableModel.addRow(objekListProduk);
-                }
+        for (int j = 0; j < produkDiKeranjang.length; j++) {
+            if (produkDiKeranjang[j] != null) {
+                Object[] objekListProduk = {
+                    produkDiKeranjang[j].getNama(),
+                    produkDiKeranjang[j].getHarga(),
+                    tr.getJumlah(j),
+                    tr.getTotal(j)
+                };
+                tableModel.addRow(objekListProduk);
             }
         }
         tabelKeranjang.setModel(tableModel);
     }
 
-    public void resetTransaksi() {
-
+    public void refreshListProduk() {
+        DefaultListModel listModel = new DefaultListModel();
+        for (int i = 0; i < listProduk.length; i++) {
+            if (listProduk[i] != null) {
+                listModel.addElement((i + 1) + ". " + listProduk[i].ToString());
+            }
+        }
+        jListProduk.setModel(listModel);
     }
 
     /**
@@ -214,20 +225,20 @@ public class menu extends javax.swing.JFrame {
         jTable5 = new javax.swing.JTable();
         PanelPilih = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
-        PilihProduk = new javax.swing.JTextField();
+        cariProdukTXT = new javax.swing.JTextField();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        PilihBanyak = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jumlahProdukTXT = new javax.swing.JTextField();
+        buttonHapusProdukTRX = new javax.swing.JButton();
+        buttonCetakBayar = new javax.swing.JButton();
         jScrollPaneKeranjang = new javax.swing.JScrollPane();
         tabelKeranjang = new javax.swing.JTable();
         jLabel17 = new javax.swing.JLabel();
-        PilihHapus = new javax.swing.JTextField();
+        hapusProdukTRXTXT = new javax.swing.JTextField();
         jScrollPane7 = new javax.swing.JScrollPane();
         jListProduk = new javax.swing.JList<>();
         resetTransaksiButton = new javax.swing.JButton();
+        buttonTambahProdukTRX = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -800,31 +811,33 @@ public class menu extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel14.setText("Silahkan Pilih Produk Yang Akan Di Beli !");
 
-        PilihProduk.addActionListener(new java.awt.event.ActionListener() {
+        cariProdukTXT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PilihProdukActionPerformed(evt);
+                cariProdukTXTActionPerformed(evt);
             }
         });
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel15.setText("Masukkan Nama Produk : ");
+        jLabel15.setText("Masukkan Nama Produk (angka): ");
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel16.setText("Banyak Yang Dibeli :");
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setText("Tambah");
-
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton2.setText("Hapus");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        buttonHapusProdukTRX.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        buttonHapusProdukTRX.setText("Hapus");
+        buttonHapusProdukTRX.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                buttonHapusProdukTRXActionPerformed(evt);
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton3.setText("Cetak Pilihan");
+        buttonCetakBayar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonCetakBayar.setText("Cetak Pilihan");
+        buttonCetakBayar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCetakBayarActionPerformed(evt);
+            }
+        });
 
         jScrollPaneKeranjang.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -853,6 +866,12 @@ public class menu extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel17.setText("Masukkan Nama Produk Yang Akan Di Hapus : ");
 
+        hapusProdukTRXTXT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hapusProdukTRXTXTActionPerformed(evt);
+            }
+        });
+
         jListProduk.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jListProdukMouseClicked(evt);
@@ -864,6 +883,14 @@ public class menu extends javax.swing.JFrame {
         resetTransaksiButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resetTransaksiButtonActionPerformed(evt);
+            }
+        });
+
+        buttonTambahProdukTRX.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        buttonTambahProdukTRX.setText("Tambah");
+        buttonTambahProdukTRX.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonTambahProdukTRXActionPerformed(evt);
             }
         });
 
@@ -880,19 +907,20 @@ public class menu extends javax.swing.JFrame {
                 .addComponent(jScrollPane7)
                 .addGap(18, 18, 18)
                 .addGroup(PanelPilihLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PanelPilihLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
-                        .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(PilihBanyak)
-                        .addComponent(PilihProduk)
-                        .addComponent(jButton1)
-                        .addComponent(jButton2)
-                        .addComponent(jLabel17)
-                        .addComponent(PilihHapus))
-                    .addGroup(PanelPilihLayout.createSequentialGroup()
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(resetTransaksiButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(PanelPilihLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(PanelPilihLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel15, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
+                            .addComponent(cariProdukTXT)
+                            .addComponent(buttonHapusProdukTRX)
+                            .addComponent(jLabel17)
+                            .addComponent(hapusProdukTRXTXT))
+                        .addGroup(PanelPilihLayout.createSequentialGroup()
+                            .addComponent(buttonCetakBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(resetTransaksiButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jumlahProdukTXT, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(buttonTambahProdukTRX)
+                    .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
             .addComponent(jScrollPaneKeranjang)
         );
@@ -903,28 +931,28 @@ public class menu extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(PanelPilihLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(PanelPilihLayout.createSequentialGroup()
-                        .addComponent(jLabel15)
+                        .addComponent(jLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PilihProduk, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cariProdukTXT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(PilihBanyak, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jumlahProdukTXT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
-                        .addGap(42, 42, 42)
+                        .addComponent(buttonTambahProdukTRX)
+                        .addGap(30, 30, 30)
                         .addComponent(jLabel17)
                         .addGap(8, 8, 8)
-                        .addComponent(PilihHapus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(hapusProdukTRXTXT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(buttonHapusProdukTRX)
                         .addGap(18, 18, 18)
                         .addGroup(PanelPilihLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(buttonCetakBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(resetTransaksiButton)))
                     .addComponent(jScrollPane7))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPaneKeranjang, javax.swing.GroupLayout.DEFAULT_SIZE, 661, Short.MAX_VALUE)
+                .addComponent(jScrollPaneKeranjang, javax.swing.GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1003,13 +1031,29 @@ public class menu extends javax.swing.JFrame {
         stokProdukTXT.setText("");
     }//GEN-LAST:event_resetProdukTXTActionPerformed
 
-    private void PilihProdukActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PilihProdukActionPerformed
+    private void cariProdukTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cariProdukTXTActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_PilihProdukActionPerformed
+    }//GEN-LAST:event_cariProdukTXTActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void buttonHapusProdukTRXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonHapusProdukTRXActionPerformed
+        String idHapus = hapusProdukTRXTXT.getText();
+        int idxhps = Integer.parseInt(idHapus);
+        String kode = listProduk[idxhps - 1].getKode();
+
+        for (int i = 0; i < produkDiKeranjang.length; i++) {
+            if (produkDiKeranjang[i] != null) {
+                if (produkDiKeranjang[i].getKode().equalsIgnoreCase(kode)) {
+                    System.out.println("d");
+                    tr.hapusProduk(kode);
+                }
+            }
+        }
+
+        refreshKeranjang();
+        hapusProdukTRXTXT.setText("");
+    }//GEN-LAST:event_buttonHapusProdukTRXActionPerformed
+
+//    tr.hapusProduk (kode);
 
     private void namaProdukTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namaProdukTXTActionPerformed
         // TODO add your handling code here:
@@ -1043,23 +1087,59 @@ public class menu extends javax.swing.JFrame {
         int index = jListProduk.getSelectedIndex();
         if (index != -1) {
 //            String produk = jListProduk.getSelectedValue();
-//            cProduk produk = 
             String kodeProduk = listProduk[index].getKode();
             System.out.println(kodeProduk);
 
-//            DefaultTableModel tabelKeranjangModel = new DefaultTableModel(
-//                    new String[]{"kode Produk", "Nama Produk", "Harga Produk", "Jumlah Produk"}, 0); // Column names
             tr.tambahProduk(listProduk[index], 1);
-//            tabelKeranjangModel.addRow(new Object[]{listProduk[index].getNama(), listProduk[index].getHarga(), tr.getJumlah(), tr.getJumlah() * listProduk[index].getHarga()});
-            refreshListProduk();
+            param = true;
+            refreshKeranjang();
 
         }
-//        System.out.println(index);
     }//GEN-LAST:event_jListProdukMouseClicked
 
     private void resetTransaksiButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetTransaksiButtonActionPerformed
-        // TODO add your handling code here:
+        tr.reset();
+        produkDiKeranjang = tr.getObjekProduk();
+        refreshKeranjang();
     }//GEN-LAST:event_resetTransaksiButtonActionPerformed
+
+    private void buttonTambahProdukTRXActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonTambahProdukTRXActionPerformed
+//        int nama = Integer.parseInt(cariProdukTXT.getText());
+        String namaRaw = cariProdukTXT.getText();
+        String jumlahRaw = jumlahProdukTXT.getText();
+        int indexPrd = Integer.parseInt(namaRaw);
+        int jumlahPrd = Integer.parseInt(jumlahRaw);
+
+        int idx = 0;
+        boolean ketemu = false;
+//        System.out.println(jumlahPrd);
+        for (int i = 0; i < listProduk.length; i++) {
+            if (i == indexPrd && listProduk[i - 1].getStok() > jumlahPrd) {
+                if (listProduk != null) {
+                    ketemu = true;
+                    idx = indexPrd - 1;
+                }
+            }
+        }
+
+        if (listProduk[idx].getStok() < jumlahPrd) {
+            JOptionPane.showMessageDialog(tabelKeranjang, "TIDAK BISA, JUMLAH MELEBIHI STOK");
+        } else if (ketemu || listProduk[idx].getStok() == jumlahPrd) {
+            tr.tambahProduk(listProduk[idx], jumlahPrd);
+        }
+
+        refreshKeranjang();
+        cariProdukTXT.setText("");
+        jumlahProdukTXT.setText("");
+    }//GEN-LAST:event_buttonTambahProdukTRXActionPerformed
+
+    private void hapusProdukTRXTXTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hapusProdukTRXTXTActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_hapusProdukTRXTXTActionPerformed
+
+    private void buttonCetakBayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCetakBayarActionPerformed
+//        tabbedPane.getSelectedIndex(3);
+    }//GEN-LAST:event_buttonCetakBayarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1108,17 +1188,16 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JPanel LP_Pembeli;
     private javax.swing.JPanel LP_Produk;
     private javax.swing.JPanel PanelPilih;
-    private javax.swing.JTextField PilihBanyak;
-    private javax.swing.JTextField PilihHapus;
-    private javax.swing.JTextField PilihProduk;
     private javax.swing.JTextField alamatTXT;
+    private javax.swing.JButton buttonCetakBayar;
+    private javax.swing.JButton buttonHapusProdukTRX;
+    private javax.swing.JButton buttonTambahProdukTRX;
+    private javax.swing.JTextField cariProdukTXT;
     private java.awt.Button daftarButton1;
     private javax.swing.JTable daftarMember;
     private javax.swing.JTable daftarProduk;
+    private javax.swing.JTextField hapusProdukTRXTXT;
     private javax.swing.JTextField hargaProdukTXT;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1170,6 +1249,7 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JTable jTable5;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jumlahProdukTXT;
     private javax.swing.JTextField namaProdukTXT;
     private javax.swing.JTextField namaTXT;
     private javax.swing.JPanel panelHistori;
