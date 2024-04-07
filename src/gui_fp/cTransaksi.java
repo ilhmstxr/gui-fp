@@ -5,31 +5,32 @@
 package gui_fp;
 
 import java.util.Scanner;
+import javax.swing.DefaultListModel;
 
 /**
  *
  * @author Ilhamstxr
  */
 public class cTransaksi {
-    
+
     static Scanner s = new Scanner(System.in);
     private cPembeli pbl;
-    private cProduk prd[];
-    private int jumprd[];
-    private int totprd[];
-    private int idxPrd, maksprd;
+    private cProduk produk[];
+    private int jumlahProduk[], subtotalProduk[];
+//    private int totproduk[];
+    private int idxPrd, maksPrd;
+    private int jumlah, total;
     int jwb;
 
-    private int jumlah, total;
-    private String kode, tgl;
-
+//    private int jumlah, total;
+//    private String kode, tgl;
     cTransaksi() {
-        prd = new cProduk[10];
-        jumprd = new int[5];
-        totprd = new int[5];
+        maksPrd = 20;
+        produk = new cProduk[maksPrd];
+        jumlahProduk = new int[maksPrd];
+        subtotalProduk = new int[maksPrd];
         idxPrd = 0;
-        maksprd = 5;
-        System.out.println("Default const berhasil dibuat");
+        System.out.println("constructor transaksi berhasil dibuat");
     }
 
     // cara 1
@@ -44,89 +45,83 @@ public class cTransaksi {
     }
 
     public void setProduk(cProduk p) {
-        prd[idxPrd] = new cProduk();
-        prd[idxPrd] = p;
+        produk[idxPrd] = new cProduk();
+        produk[idxPrd] = p;
     }
 
-    public void setTotal(int t) {
-        total = t;
-    }
-
-    public void setJumlah(int j) {
-        jumlah = j;
-    }
-
+//    public void setTotal(int t) {
+//        total = t;
+//    }
+//
+//    public void setJumlah(int j) {
+//        jumlah = j;
+//    }
     public cPembeli getPembeli() {
         return pbl;
     }
 
     public cProduk[] getProduk() {
-        return prd;
+        return produk;
     }
 
-    public int getTotal() {
+    public int getTotal(int idx) {
+        total = subtotalProduk[idx];
         return total;
     }
+//
 
-    public int getJumlah() {
+    public int getJumlah(int idx) {
+        jumlah = jumlahProduk[idx];
         return jumlah;
     }
 
-    public int getIdxprd() {
-        return idxPrd;
-    }
-
+//    public int getIdxproduk() {
+//        return idxPrd;
+//    }
     // keranjang
     public void tambahProduk(cProduk p, int j) {
-        prd[idxPrd] = p;
-        jumprd[idxPrd] = j;
-        totprd[idxPrd] = j * p.getHarga();
-        idxPrd++;
-    }
-
-    public void tambahProduk(cProduk p) {
-        if (idxPrd < maksprd) {
-            prd[idxPrd] = p;
-            System.out.println("Tambah Sukses");
+        if (idxPrd < maksPrd) {
+            produk[idxPrd] = p;
+            jumlahProduk[idxPrd] = j;
+            subtotalProduk[idxPrd] = j * p.getHarga();
             idxPrd++;
+            System.out.println("tambah berhasil");
         } else {
-            System.out.println("Keranjang penuh");
+            System.out.println("Keranjang Penuh");
         }
     }
 
-    public void lihatKeranjang() {
-        System.out.println("Keranjang");
-        for (int i = 0; i < idxPrd; i++) {
-            System.out.println((i + 1) + ". " + prd[i].getNama() + " [" + jumprd[i] + "]");
-        }
-        System.out.println("");
+    public cProduk[] getObjekProduk() {
+        return produk;
     }
 
-    public void hapusProduk(String np) {
-        // appKasir main = new konfirmasi();
+    public cProduk[] reset() {
+        cTransaksi tr = new cTransaksi();
+        produk = new cProduk[maksPrd];
+        jumlahProduk = new int[maksPrd];
+        subtotalProduk = new int[maksPrd];
+        idxPrd = 0;
+        System.out.println("reset");
+        return produk;
+    }
+
+    public void hapusProduk(String k) {
+
         boolean ketemu = false;
+        System.out.println(k);
         for (int i = 0; i < idxPrd; i++) {
-            if (np.equalsIgnoreCase(prd[i].getNama())) {
+            if (k.equalsIgnoreCase(produk[i].getKode())) {
                 ketemu = true;
-                System.out.println("Apakah yakin?");
-                System.out.println("1. Ya");
-                System.out.println("2. Tidak");
-                System.out.println("pilih = ");
-                int jwb = s.nextInt();
-                if (jwb == 1) {
-                    prd[i] = null;
-                    for (int j = 0; j < idxPrd; j++) {
-                        if (j == idxPrd - 1) {
-                            prd[j] = null;
-                        } else {
-                            prd[j] = prd[j + 1];
-                        }
+                produk[i] = null;
+                for (int j = 0; j < idxPrd; j++) {
+                    if (j == idxPrd - 1) {
+                        produk[j] = null;
+                    } else {
+                        produk[j] = produk[j + 1];
                     }
-                    idxPrd--;
-                    System.out.println("Hapus Sukses");
                 }
-                System.out.println("Hapus Gagal");
-                // jwb = konfirmasi();
+                idxPrd--;
+                System.out.println("Hapus Sukses");
             }
         }
     }

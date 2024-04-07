@@ -15,7 +15,7 @@ public class cProduk {
 
     private String nama, kode;
     private int harga, stok, index;
-    private int produkKe = 0;
+    private static int produkKe = 0;
 
     LocalDateTime date = LocalDateTime.now();
     int tanggal = date.getDayOfMonth();
@@ -58,6 +58,10 @@ public class cProduk {
         return harga;
     }
 
+    public String getKode(){
+        return kode;
+    }
+    
     public int getStok() {
         return stok;
     }

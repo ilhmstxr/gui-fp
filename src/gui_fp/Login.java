@@ -11,7 +11,7 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form Login
      */
-    public static String pass = "12345678";
+    public static String pass = "123";
     public Login() {
         initComponents();
     }
